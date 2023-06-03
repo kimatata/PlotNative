@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.5"
+    "bootstrap-icons": "^1.10.5",
+    "chart.js": "^4.3.0"
   }
 }
