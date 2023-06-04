@@ -5,7 +5,7 @@
         <div class="container-fluid">
           <NuxtLink :to="'/'" class="navbar-brand">
             <img src="/android-chrome-96x96.png" alt="icon" width="30" />
-            <span class="ms-2 title">math plot</span>
+            <span class="ms-2 title">plotman</span>
           </NuxtLink>
         </div>
       </nav>

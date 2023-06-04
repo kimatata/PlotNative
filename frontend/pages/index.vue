@@ -4,12 +4,20 @@
       <div class="col-md-3 border-end sidebar shadow">
         <!-- formula input -->
         <div class="row p-3">
-          <label class="form-text my-2" for="function">type any formula you want to plot.</label>
+          <label class="form-text my-2" for="fx">type any formula you want to plot.</label>
           <div class="col-auto">
-            <label for="function" class="col-form-label">y = </label>
+            <label for="fx" class="col-form-label">y = </label>
           </div>
           <div class="col">
-            <input type="text" id="function" class="form-control">
+            <input type="text" id="fx" :placeholder="samplefx" class="form-control" v-model="fx">
+          </div>
+          <div class="mt-3 text-muted">
+            sample
+            <ul>
+              <li>sin(x)</li>
+              <li>e^x</li>
+              <li>sqrt(x)</li>
+            </ul>
           </div>
         </div>
 
@@ -51,10 +59,12 @@
 import Chart from 'chart.js/auto'; // TODO バンドルサイズ小さく
 
 let chart = null
-const reactiveData = ref([])
-const xMin = ref(-1)
-const xMax = ref(1)
+const samplefx = "f(x)"
+const fx = ref("x^2")
+const xMin = ref(-5)
+const xMax = ref(5)
 const plotNum = ref(256)
+const reactiveData = ref([])
 
 onMounted(async () => {
   await fetchData();
@@ -69,6 +79,7 @@ async function onPlotClicked() {
 async function fetchData() {
   // サーバーサイドでプロットデータを生成
   const params = {
+    fx: fx.value,
     xmin: xMin.value,
     xmax: xMax.value,
     plotnum: plotNum.value,
