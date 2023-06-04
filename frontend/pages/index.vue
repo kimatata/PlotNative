@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 border-end sidebar">
+      <div class="col-md-3 border-end sidebar shadow">
         <!-- formula input -->
         <div class="row p-3">
           <label class="form-text my-2" for="function">type any formula you want to plot.</label>
@@ -36,12 +36,12 @@
         </div>
 
         <div class="row p-3 border-top border-bottom">
-          <div class="btn ar-btn-primary mt-3 w-100" @click="onPlotClicked">plot</div>
+          <button class="btn ar-btn-primary mt-3 w-100" @click="onPlotClicked">plot</button>
         </div>
       </div>
 
       <div class="col-md-9">
-        <canvas id="myPlot"></canvas>
+        <canvas id="myPlot" class="mt-3"></canvas>
       </div>
     </div>
   </div>
@@ -87,7 +87,7 @@ function createChart() {
     datasets: [{
       label: 'Scatter Dataset',
       data: reactiveData.value,
-      backgroundColor: 'rgb(255, 99, 132)'
+      backgroundColor: '#663399'
     }],
   };
 
@@ -99,6 +99,26 @@ function createChart() {
         x: {
           type: 'linear',
           position: 'bottom'
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          usePointStyle: true,
+          callbacks: {
+            label: function (context) {
+              let label = context.dataset.label || '';
+              label = ` (${context.parsed.x.toPrecision(3)}, ${context.parsed.y.toPrecision(3)})`
+              return label;
+            },
+            labelPointStyle: function (context) {
+              return {
+                pointStyle: 'circle',
+              };
+            },
+          }
         }
       }
     }
