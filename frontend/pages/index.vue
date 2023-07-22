@@ -46,6 +46,9 @@
         <div class="row p-3 border-top border-bottom">
           <button class="btn ar-btn-primary mt-3 w-100" @click="onPlotClicked">plot</button>
         </div>
+        <v-btn @click="onPlotClicked">
+          ぷろっと
+        </v-btn>
       </div>
 
       <div class="col-md-9">

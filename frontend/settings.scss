@@ -1,0 +1,10 @@
+// see samples:
+// https://github.com/CodyBontecou/nuxt3-and-vuetify/blob/main/settings.scss
+
+@forward "vuetify/settings" with (
+  $utilities: false,
+  $button-height: 40px,
+  $button-color: green,
+  $button-border-radius: 100px,
+  $button-font-weight: 700
+);
