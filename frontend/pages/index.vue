@@ -1,71 +1,76 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" class="pa-3">
-      <!-- formula input -->
-      <div class="pa-3">
-        <div class="text-caption">
-          type any formula you want to plot.
-          <div class="mt-1">
-            example:
-            <ul class="ma-3">
-              <li>sin(x)</li>
-              <li>e^x</li>
-              <li>sqrt(x)</li>
-            </ul>
-          </div>
-        </div>
-        <v-text-field label="f(x) = " v-model="fx"></v-text-field>
-      </div>
-      <v-divider></v-divider>
+    <!-- <v-navigation-drawer v-model="drawer" class="pa-3">
+    </v-navigation-drawer> -->
 
-      <!-- range input -->
-      <div class="pa-3">
-        <div class="text-caption">plot range</div>
-        <v-slider v-model="xMin" :min="-1023" :max="1024" :step="1" label="min" hide-details class="mt-1">
-          <template v-slot:append>
-            <v-text-field v-model="xMin" type="number" style="width: 80px" density="compact" hide-details></v-text-field>
-          </template>
-        </v-slider>
-        <v-slider v-model="xMax" :min="-1023" :max="1024" :step="1" label="max" hide-details class="mt-1">
-          <template v-slot:append>
-            <v-text-field v-model="xMax" type="number" style="width: 80px" density="compact" hide-details></v-text-field>
-          </template>
-        </v-slider>
-      </div>
-      <v-divider></v-divider>
-
-      <!-- range input -->
-      <div class="pa-3">
-        <div class="text-caption">plot num</div>
-        <v-slider v-model="plotNum" :min="1" :max="1024" :step="1" hide-details class="mt-1">
-          <template v-slot:append>
-            <v-text-field v-model="plotNum" type="number" style="width: 80px" density="compact"
-              hide-details></v-text-field>
-          </template>
-        </v-slider>
-      </div>
-      <v-divider></v-divider>
-
-      <div class="pa-3">
-        <v-btn @click="onPlotClicked" class="ar-btn-primary mt-3 w-100">
-          plot
-        </v-btn>
-      </div>
-      <v-divider></v-divider>
-    </v-navigation-drawer>
-
-    <v-app-bar>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar height="64">
+      <!-- <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon> -->
       <v-toolbar-title>
         <!-- <img src="/android-chrome-96x96.png" alt="icon" width="30" /> -->
-        plotman
+        nativePlot
       </v-toolbar-title>
     </v-app-bar>
 
     <v-main>
-      <v-container>
+      <v-container fluid="true">
         <v-row>
-          <v-col>
+          <v-col cols="3" class="sidebar">
+            <!-- formula input -->
+            <div class="pa-3">
+              <div class="text-caption">
+                type any formula you want to plot.
+                <div class="mt-1">
+                  example:
+                  <ul class="ma-3">
+                    <li>sin(x)</li>
+                    <li>e^x</li>
+                    <li>sqrt(x)</li>
+                  </ul>
+                </div>
+              </div>
+              <v-text-field label="f(x) = " v-model="fx"></v-text-field>
+            </div>
+            <v-divider></v-divider>
+
+            <!-- range input -->
+            <div class="pa-3">
+              <div class="text-caption">plot range</div>
+              <v-slider v-model="xMin" :min="-1023" :max="1024" :step="1" label="min" hide-details class="mt-1">
+                <template v-slot:append>
+                  <v-text-field v-model="xMin" type="number" style="width: 100px" density="compact"
+                    hide-details></v-text-field>
+                </template>
+              </v-slider>
+              <v-slider v-model="xMax" :min="-1023" :max="1024" :step="1" label="max" hide-details class="mt-1">
+                <template v-slot:append>
+                  <v-text-field v-model="xMax" type="number" style="width: 100px" density="compact"
+                    hide-details></v-text-field>
+                </template>
+              </v-slider>
+            </div>
+            <v-divider></v-divider>
+
+            <!-- range input -->
+            <div class="pa-3">
+              <div class="text-caption">plot num</div>
+              <v-slider v-model="plotNum" :min="1" :max="1024" :step="1" hide-details class="mt-1">
+                <template v-slot:append>
+                  <v-text-field v-model="plotNum" type="number" style="width: 100px" density="compact"
+                    hide-details></v-text-field>
+                </template>
+              </v-slider>
+            </div>
+            <v-divider></v-divider>
+
+            <div class="pa-3">
+              <v-btn @click="onPlotClicked" class="ar-btn-primary mt-3 w-100">
+                plot
+              </v-btn>
+            </div>
+            <v-divider></v-divider>
+          </v-col>
+          <v-divider inset vertical></v-divider>
+          <v-col cols="9">
             <canvas id="myPlot" class=""></canvas>
           </v-col>
         </v-row>
@@ -166,4 +171,8 @@ async function updateChart() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.sidebar {
+  min-height: calc(100vh - 64);
+}
+</style>
