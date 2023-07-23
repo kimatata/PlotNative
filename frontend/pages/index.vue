@@ -1,66 +1,85 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-3 border-end sidebar shadow">
-        <!-- formula input -->
-        <div class="row p-3">
-          <label class="form-text my-2" for="fx">type any formula you want to plot.</label>
-          <div class="col-auto">
-            <label for="fx" class="col-form-label">y = </label>
-          </div>
-          <div class="col">
-            <input type="text" id="fx" :placeholder="samplefx" class="form-control" v-model="fx">
-          </div>
-          <div class="mt-3 text-muted">
-            sample
-            <ul>
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer" class="pa-3">
+      <!-- formula input -->
+      <div class="pa-3">
+        <div class="text-caption">
+          type any formula you want to plot.
+          <div class="mt-1">
+            example:
+            <ul class="ma-3">
               <li>sin(x)</li>
               <li>e^x</li>
               <li>sqrt(x)</li>
             </ul>
           </div>
         </div>
+        <v-text-field label="f(x) = " v-model="fx"></v-text-field>
+      </div>
+      <v-divider></v-divider>
 
-        <!-- range input -->
-        <div class="row p-3 border-top">
-          <label class="form-text my-2">x range</label>
-          <div class="col">
-            <label class="form-text" for="x-min">min</label>
-            <input id="x-min" class="form-control" v-model="xMin">
-          </div>
-          <!-- <span class="mx-2">-</span> -->
-          <div class="col">
-            <label class="form-text" for="x-max">max</label>
-            <input id="x-max" class="form-control" v-model="xMax">
-          </div>
-        </div>
+      <!-- range input -->
+      <div class="pa-3">
+        <div class="text-caption">plot range</div>
+        <v-slider v-model="xMin" :min="-1023" :max="1024" :step="1" label="min" hide-details class="mt-1">
+          <template v-slot:append>
+            <v-text-field v-model="xMin" type="number" style="width: 80px" density="compact" hide-details></v-text-field>
+          </template>
+        </v-slider>
+        <v-slider v-model="xMax" :min="-1023" :max="1024" :step="1" label="max" hide-details class="mt-1">
+          <template v-slot:append>
+            <v-text-field v-model="xMax" type="number" style="width: 80px" density="compact" hide-details></v-text-field>
+          </template>
+        </v-slider>
+      </div>
+      <v-divider></v-divider>
 
-        <!-- range input -->
-        <div class="row p-3 border-top">
-          <div class="col">
-            <label class="form-text" for="plot-num">plot num</label>
-            <input id="plot-num" class="form-control" type="number" v-model="plotNum">
-          </div>
-        </div>
+      <!-- range input -->
+      <div class="pa-3">
+        <div class="text-caption">plot num</div>
+        <v-slider v-model="plotNum" :min="1" :max="1024" :step="1" hide-details class="mt-1">
+          <template v-slot:append>
+            <v-text-field v-model="plotNum" type="number" style="width: 80px" density="compact"
+              hide-details></v-text-field>
+          </template>
+        </v-slider>
+      </div>
+      <v-divider></v-divider>
 
-        <div class="row p-3 border-top border-bottom">
-          <button class="btn ar-btn-primary mt-3 w-100" @click="onPlotClicked">plot</button>
-        </div>
-        <v-btn @click="onPlotClicked">
-          ぷろっと
+      <div class="pa-3">
+        <v-btn @click="onPlotClicked" class="ar-btn-primary mt-3 w-100">
+          plot
         </v-btn>
       </div>
+      <v-divider></v-divider>
+    </v-navigation-drawer>
 
-      <div class="col-md-9">
-        <canvas id="myPlot" class="mt-3"></canvas>
-      </div>
-    </div>
-  </div>
+    <v-app-bar>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>
+        <!-- <img src="/android-chrome-96x96.png" alt="icon" width="30" /> -->
+        plotman
+      </v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <v-container>
+        <v-row>
+          <v-col>
+            <canvas id="myPlot" class=""></canvas>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script setup>
 import Chart from 'chart.js/auto'; // TODO バンドルサイズ小さく
+// ui
+const drawer = ref(null)
 
+// plot
 let chart = null
 const samplefx = "f(x)"
 const fx = ref("x^2")
@@ -147,8 +166,4 @@ async function updateChart() {
 }
 </script>
 
-<style scoped>
-.sidebar {
-  min-height: calc(100vh - 55px);
-}
-</style>
+<style scoped></style>
