@@ -5,6 +5,10 @@ const port = 3001;
 
 const math = require("mathjs");
 
+app.get('/', (req, res) => {
+  res.send('hello world')
+})
+
 app.get("/plot", async (req, res) => {
   // frontendからのリクエストはoriginが異なるので許可設定が必要
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
