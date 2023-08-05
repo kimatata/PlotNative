@@ -19,7 +19,7 @@ yarn dev -o
 FRONTEND_ORIGIN="http://localhost:3000" SERVER_PORT=8080 node app
 ```
 
-``` title="ローカルでのfrontend/.envの内容"
+```c:ローカルでのfrontend/.envの内容
 NUXT_SERVER_ORIGIN = "http://localhost:8080"
 ```
 
@@ -34,7 +34,7 @@ cd frontend
 yarn generate
 ```
 
-``` title="ビルド時のfrontend/.env.envの内容"
+```c:ビルド時のfrontend/.env.envの内容
 NUXT_SERVER_ORIGIN = "http://18.183.220.92:80"
 ```
 
