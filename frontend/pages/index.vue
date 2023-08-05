@@ -103,6 +103,9 @@ async function onPlotClicked() {
   updateChart()
 }
 
+const runtimeConfig = useRuntimeConfig();
+const origin = runtimeConfig.public.serverOrigin
+
 async function fetchData() {
   // サーバーサイドでプロットデータを生成
   const params = {
@@ -112,8 +115,7 @@ async function fetchData() {
     plotnum: plotNum.value,
   };
   const query_params = new URLSearchParams(params);
-  // const url = 'http://localhost:8080/plot?' + query_params
-  const url = 'http://18.183.220.92:80/plot?' + query_params
+  const url = origin + '/plot?' + query_params
 
   const jsonStr = await fetch(url)
   const ret = await jsonStr.json()

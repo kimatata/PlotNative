@@ -9,6 +9,20 @@
 |フロントエンド|Nuxt3|
 |バックエンド|node.js|
 
+### ローカル環境
+
+```bash
+yarn dev -o
+```
+
+```bash
+FRONTEND_ORIGIN="http://localhost:3000" SERVER_PORT=8080 node app
+```
+
+``` title="ローカルでのfrontend/.envの内容"
+NUXT_SERVER_ORIGIN = "http://localhost:8080"
+```
+
 ## デプロイ
 
 ### フロントエンド側デプロイ
@@ -18,6 +32,10 @@
 ```bash
 cd frontend
 yarn generate
+```
+
+``` title="ビルド時のfrontend/.env.envの内容"
+NUXT_SERVER_ORIGIN = "http://18.183.220.92:80"
 ```
 
 `output/public`フォルダ配下のファイルをすべてS3バケットにコピー。
@@ -45,6 +63,8 @@ npm install
 
 #### サーバー起動
 
+nodeでウェルノウンポートを使うときは管理者権限が必要
+
 ```bash
-FRONTEND_ORIGIN="http://localhost:3000" SERVER_PORT=80 node app
+sudo FRONTEND_ORIGIN="http://nuxt3-ssg-deploy-test.s3-website-ap-northeast-1.amazonaws.com" SERVER_PORT=80 node app
 ```

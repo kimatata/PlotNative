@@ -4,6 +4,11 @@ import { createResolver } from "@nuxt/kit";
 // const { resolve } = createResolver(import.meta.url);
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      serverOrigin: process.env.NUXT_SERVER_ORIGIN,
+    },
+  },
   css: [
     "vuetify/lib/styles/main.sass", // vuetify
     "@mdi/font/css/materialdesignicons.min.css", // vuetify fonts
