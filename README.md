@@ -25,3 +25,26 @@ yarn generate
 ### バックエンド側デプロイ
 
 nodeからネイティブコードを呼び出す練習レポジトリ
+
+#### EC2インスタンス作成
+
+インバウンドルールを編集し, HTTPの80番ポートを許可する
+
+#### ソースコード転送
+
+FTPでSFTPを利用してサーバーにソースコードを転送する
+
+[https://devopsmania.com/how-to-connect-an-aws-ec2-instance-with-filezilla-and-do-sftp/](https://devopsmania.com/how-to-connect-an-aws-ec2-instance-with-filezilla-and-do-sftp/)
+
+#### nodeインストール&パッケージインストール
+
+```bash
+sudo yum install nodejs
+npm install
+```
+
+#### サーバー起動
+
+```bash
+FRONTEND_ORIGIN="http://localhost:3000" SERVER_PORT=80 node app
+```
