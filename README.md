@@ -19,7 +19,9 @@ yarn dev -o
 FRONTEND_ORIGIN="http://localhost:3000" SERVER_PORT=8080 node app
 ```
 
-```c:ローカルでのfrontend/.envの内容
+ローカルでのfrontend/.env
+
+```
 NUXT_SERVER_ORIGIN = "http://localhost:8080"
 ```
 
@@ -34,11 +36,13 @@ cd frontend
 yarn generate
 ```
 
-```c:ビルド時のfrontend/.env.envの内容
+`output/public`フォルダ配下のファイルをすべてS3バケットにコピー。
+
+ビルド時のfrontend/.env
+
+```
 NUXT_SERVER_ORIGIN = "http://18.183.220.92:80"
 ```
-
-`output/public`フォルダ配下のファイルをすべてS3バケットにコピー。
 
 ### バックエンド側デプロイ
 
