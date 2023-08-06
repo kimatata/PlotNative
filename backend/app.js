@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 })
 
 app.get("/plot", async (req, res) => {
-  // frontendからのリクエストはoriginが異なるので許可設定が必要
+  // frontendサーバーからのajaxリクエストのみ許可する
   res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_ORIGIN);
   const fx = req.query.fx;
   const xMin = Number(req.query.xmin);
