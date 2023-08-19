@@ -9,7 +9,7 @@
 |フロントエンド|Nuxt3|
 |バックエンド|node.js|
 
-### ローカル環境
+### ローカルでの実行
 
 ```bash
 cd frontend
@@ -18,7 +18,7 @@ bash start.sh
 
 ```bash
 cd backend
-FRONTEND_ORIGIN="http://localhost:3000" SERVER_PORT=8080 pm2 start app.js
+FRONTEND_ORIGIN="http://localhost:3000" SERVER_PORT=8080 node app.js
 ```
 
 ローカル開発環境では`frontend/.env.local`を用いる
@@ -35,7 +35,7 @@ NUXT_SERVER_ORIGIN = "http://localhost:8080"
 
 ```bash
 cd frontend
-yarn generate
+bash generate.sh
 ```
 
 `output/public`フォルダ配下のファイルをすべてS3バケットにコピー。
@@ -78,5 +78,11 @@ npm install
 nodeでウェルノウンポートを使うときは管理者権限が必要
 
 ```bash
-sudo FRONTEND_ORIGIN="http://nuxt3-ssg-deploy-test.s3-website-ap-northeast-1.amazonaws.com" SERVER_PORT=80 node app
+sudo FRONTEND_ORIGIN="http://nuxt3-ssg-deploy-test.s3-website-ap-northeast-1.amazonaws.com" SERVER_PORT=80 pm2 start app.js
+```
+
+#### サーバー停止
+
+```bash
+sudo pm2 stop
 ```
