@@ -12,11 +12,13 @@
 ### ローカル環境
 
 ```bash
-yarn dev -o
+cd frontend
+bash start.sh
 ```
 
 ```bash
-FRONTEND_ORIGIN="http://localhost:3000" SERVER_PORT=8080 node app
+cd backend
+FRONTEND_ORIGIN="http://localhost:3000" SERVER_PORT=8080 pm2 start app.js
 ```
 
 ローカル開発環境では`frontend/.env.local`を用いる
@@ -57,6 +59,12 @@ nodeからネイティブコードを呼び出す練習レポジトリ
 FTPでSFTPを利用してサーバーにソースコードを転送する
 
 [https://devopsmania.com/how-to-connect-an-aws-ec2-instance-with-filezilla-and-do-sftp/](https://devopsmania.com/how-to-connect-an-aws-ec2-instance-with-filezilla-and-do-sftp/)
+
+#### pm2グローバルインストール
+
+```bash
+npm install pm2 -g
+```
 
 #### nodeインストール&パッケージインストール
 
