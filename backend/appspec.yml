@@ -1,8 +1,9 @@
 version: 0.0
 os: linux
 files:
-  - source: /index.html
-    destination: /var/www/html/
+  # app.jsを/plotNativeBacnend/にコピーする指示
+  - source: /
+    destination: /home/ec2-user/plotNativeBacnend/
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
