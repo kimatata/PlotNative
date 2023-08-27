@@ -10,3 +10,6 @@ cd ..
 
 # S3にアップロード
 node scripts/uploadZip.js
+
+# codeDeployのデプロイイベントをトリガー
+node scripts/createDeployment.js
