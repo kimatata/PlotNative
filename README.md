@@ -29,19 +29,53 @@ NUXT_SERVER_ORIGIN = "http://localhost:8080"
 
 ## デプロイ
 
-### フロントエンド側デプロイ
+### 事前準備
 
-フロントエンドはサーバー機能を使わない構成のため, SSGによるビルド結果をS3で静的サイトホスティングする。
+#### s3へのアクセス権限を付与したIAMユーザーを作成
+
+カスタムポリシー：
+
+```json
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "VisualEditor1",
+			"Effect": "Allow",
+			"Action": [
+				"s3:*",
+				"s3-object-lambda:*"
+			],
+			"Resource": [
+				"arn:aws:s3:::nuxt3-ssg-deploy-test",
+                "arn:aws:s3:::nuxt3-ssg-deploy-test/*"
+			]
+		}
+	]
+}
+```
+
+#### ルートディレクトリに.envファイルを配置
+
+```
+IAM_USEER_KEY=xxxxxxxxx
+IAM_USER_SECRET=xxxxxxxxx
+```
+
+#### npmインストール
 
 ```bash
-cd frontend
-bash generate.sh
+npm install
 ```
 
-`output/public`フォルダ配下のファイルをすべてS3バケットにコピー。
+#### デプロイ実行
 
-ビルド時の環境変数は`frontend/.env.production`を用いる
+```bash
+npm install
+bash deploy.sh
+```
 
-```
-NUXT_SERVER_ORIGIN = "http://18.183.220.92:80"
-```
+スクリプト実行で以下の処理が行われる
+- SSGで静的ファイル生成
+- バケット中のファイルをすべて削除
+- .output/public/ 配下のファイルをすべてS3のバケットにアップロード
