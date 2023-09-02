@@ -3,13 +3,13 @@
 # **************************************************************************
 # deploy frontend
 # **************************************************************************
-# SSGで静的ファイル生成
-cd frontend
-yarn generate --dotenv .env.production
-cd ..
+# ./.envファイルを読み込んで変数として参照できるようにする
+source ./.env
 
-# バケット中のファイルをすべて削除
-node scripts/emptyBucket.js
+# awsプロファイル設定
+aws configure set aws_access_key_id $IAM_USEER_KEY
+aws configure set aws_secret_access_key $IAM_USER_SECRET
+aws configure set region ap-northeast-1
 
-# .output/public/ 配下のファイルをすべてS3のバケットにアップロード
-node scripts/uploadToBucket.js
+# アップロード実行
+aws s3 cp --recursive frontend/.output/public s3://nuxt3-ssg-deploy-test
