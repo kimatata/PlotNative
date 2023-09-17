@@ -1,21 +1,31 @@
-// envaironment
-console.log('FRONTEND_ORIGIN:', process.env.FRONTEND_ORIGIN); // "http://localhost:3000"
-console.log('PORT:', process.env.SERVER_PORT);
-
 // express
 const express = require("express");
 const app = express();
-const port = process.env.SERVER_PORT;
+const cors = require('cors')
 
+// environment
+const frontendOrigin = process.env.FRONTEND_ORIGIN ?? "http://localhost:3000"
+const port = process.env.SERVER_PORT ?? "3001";
+console.log('frontendOrigin:', frontendOrigin);
+console.log('PORT:', port);
+const corsOptions = {
+  origin: frontendOrigin,
+}
+app.use(cors(corsOptions)) // frontendサーバーからのajaxリクエストのみ許可する
+
+// import
 const math = require("mathjs");
 
 app.get('/', (req, res) => {
   res.send('hello world')
 })
 
+const viewIndexRoute = require('./views/index.js')
+const viewNewRoute = require('./views/new.js')
+app.use(viewIndexRoute)
+app.use(viewNewRoute)
+
 app.get("/plot", async (req, res) => {
-  // frontendサーバーからのajaxリクエストのみ許可する
-  res.setHeader("Access-Control-Allow-Origin", process.env.FRONTEND_ORIGIN);
   const fx = req.query.fx;
   const xMin = Number(req.query.xmin);
   const xMax = Number(req.query.xmax);

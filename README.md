@@ -87,7 +87,7 @@ sudo service codedeploy-agent status
 先ほど作成したIAMユーザーのcredentialを.envファイルに記述
 
 ```
-IAM_USEER_KEY=xxxxxxxxx
+IAM_USER_KEY=xxxxxxxxx
 IAM_USER_SECRET=xxxxxxxxx
 ```
 

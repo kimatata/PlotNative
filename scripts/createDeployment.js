@@ -4,7 +4,7 @@ const {
 } = require("@aws-sdk/client-codedeploy");
 require("dotenv").config();
 
-const ID = process.env.IAM_USEER_KEY;
+const ID = process.env.IAM_USER_KEY;
 const SECRET = process.env.IAM_USER_SECRET;
 
 const client = new CodeDeployClient({

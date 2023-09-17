@@ -7,6 +7,8 @@
           <img src="/android-chrome-96x96.png" alt="icon" width="30" />
         </v-app-bar-nav-icon>
         nativePlot
+
+        <v-btn href="views" nuxt>views</v-btn>
       </v-toolbar-title>
     </v-app-bar>
     <slot />

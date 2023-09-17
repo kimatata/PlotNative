@@ -3,7 +3,7 @@ const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 require("dotenv").config();
 
 const BUCKET_NAME = "plot-native-code-deploy";
-const ID = process.env.IAM_USEER_KEY;
+const ID = process.env.IAM_USER_KEY;
 const SECRET = process.env.IAM_USER_SECRET;
 
 const s3Client = new S3Client({

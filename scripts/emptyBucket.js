@@ -2,7 +2,7 @@ const { S3Client, ListObjectsV2Command, DeleteObjectsCommand } = require("@aws-s
 require("dotenv").config();
 
 const BUCKET_NAME = "nuxt3-ssg-deploy-test";
-const ID = process.env.IAM_USEER_KEY;
+const ID = process.env.IAM_USER_KEY;
 const SECRET = process.env.IAM_USER_SECRET;
 
 const s3Client = new S3Client({

@@ -7,7 +7,7 @@
 source ./.env
 
 # awsプロファイル設定
-aws configure set aws_access_key_id $IAM_USEER_KEY
+aws configure set aws_access_key_id $IAM_USER_KEY
 aws configure set aws_secret_access_key $IAM_USER_SECRET
 aws configure set region ap-northeast-1
 
