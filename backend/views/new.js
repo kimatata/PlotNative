@@ -1,11 +1,10 @@
 const express = require("express");
 const crypto = require("crypto");
+const { DynamoDBClient, WriteRequest } = require("@aws-sdk/client-dynamodb");
 const {
-  DynamoDBClient,
-  WriteRequest,
-  BatchWriteItemCommand,
-} = require("@aws-sdk/client-dynamodb");
-const { DynamoDBDocumentClient } = require("@aws-sdk/client-dynamodb");
+  DynamoDBDocumentClient,
+  PutCommand,
+} = require("@aws-sdk/lib-dynamodb");
 require("dotenv").config();
 
 const dbClient = new DynamoDBClient({
@@ -17,44 +16,27 @@ const dbClient = new DynamoDBClient({
 });
 const documentClient = DynamoDBDocumentClient.from(dbClient);
 
-const writeRequests = [
-  {
-    PutRequest: {
+async function putItem() {
+  try {
+    const command = new PutCommand({
+      TableName: "viewDev",
       Item: {
-        viewId: { S: crypto.randomUUID() },
-        dbVersion: { N: `${1}` },
-        name: { S: "sample1" },
-        formula: { S: "x-2" },
+        viewId: crypto.randomUUID(),
+        dbVersion: 1,
+        name: "sample1",
+        formula: "3x-4",
       },
-    },
-  },
-  {
-    PutRequest: {
-      Item: {
-        viewId: { S: crypto.randomUUID() },
-        dbVersion: { N: `${1}` },
-        name: { S: "sample2" },
-        formula: { S: "x^2+3x-2" },
-      },
-    },
-  },
-];
-
-const tableName = "viewDev";
-
-async function putItems() {
-  const result = await dynamoDBClient.send(
-    new BatchWriteItemCommand({
-      RequestItems: {
-        [tableName]: writeRequests, // キーにテーブル名を指定
-      },
-    })
-  );
+    });
+    const output = await documentClient.send(command);
+    return output.Items;
+  } catch (err) {
+    console.log("ERROR:", err);
+  }
 }
 
 const router = express.Router();
 router.post("/views/new", async (req, res) => {
-  await putItems();
+  await putItem();
   res.json({ success: true });
 });
 

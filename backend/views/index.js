@@ -1,6 +1,10 @@
 const express = require("express");
-const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
-require('dotenv').config()
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBDocumentClient,
+  ScanCommand,
+} = require("@aws-sdk/lib-dynamodb");
+require("dotenv").config();
 
 const dbClient = new DynamoDBClient({
   region: "ap-northeast-1",
@@ -9,6 +13,7 @@ const dbClient = new DynamoDBClient({
     secretAccessKey: process.env.IAM_USER_SECRET,
   },
 });
+const documentClient = DynamoDBDocumentClient.from(dbClient);
 
 async function scan() {
   try {
@@ -16,8 +21,8 @@ async function scan() {
       TableName: "viewDev",
       Limit: 100,
     });
-    const output = await dbClient.send(command);
-    return output.Items
+    const output = await documentClient.send(command);
+    return output.Items;
   } catch (err) {
     console.log("ERROR:", err);
   }
