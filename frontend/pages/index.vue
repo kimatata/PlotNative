@@ -16,7 +16,7 @@
                 </ul>
               </div>
             </div>
-            <v-text-field label="f(x) = " v-model="fx"></v-text-field>
+            <v-text-field variant="outlined" label="f(x) = " v-model="fx" />
           </div>
           <v-divider></v-divider>
 
@@ -25,14 +25,14 @@
             <div class="text-caption">plot range</div>
             <v-slider v-model="xMin" :min="-1023" :max="1024" :step="1" label="min" hide-details class="mt-1">
               <template v-slot:append>
-                <v-text-field v-model="xMin" type="number" style="width: 100px" density="compact"
-                  hide-details></v-text-field>
+                <v-text-field variant="outlined" v-model="xMin" type="number" style="width: 100px" density="compact"
+                  hide-details />
               </template>
             </v-slider>
             <v-slider v-model="xMax" :min="-1023" :max="1024" :step="1" label="max" hide-details class="mt-1">
               <template v-slot:append>
-                <v-text-field v-model="xMax" type="number" style="width: 100px" density="compact"
-                  hide-details></v-text-field>
+                <v-text-field variant="outlined" v-model="xMax" type="number" style="width: 100px" density="compact"
+                  hide-details />
               </template>
             </v-slider>
           </div>
@@ -43,8 +43,8 @@
             <div class="text-caption">plot num</div>
             <v-slider v-model="plotNum" :min="1" :max="1024" :step="1" hide-details class="mt-1">
               <template v-slot:append>
-                <v-text-field v-model="plotNum" type="number" style="width: 100px" density="compact"
-                  hide-details></v-text-field>
+                <v-text-field variant="outlined" v-model="plotNum" type="number" style="width: 100px" density="compact"
+                  hide-details />
               </template>
             </v-slider>
           </div>

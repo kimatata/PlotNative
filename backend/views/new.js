@@ -7,6 +7,19 @@ const {
 } = require("@aws-sdk/lib-dynamodb");
 require("dotenv").config();
 
+const router = express.Router();
+router.post("/views/new", async (req, res) => {
+  const formula = req.query.formula;
+  const name = req.query.name;
+
+  if (formula.length < 1 || name.length < 1) {
+    res.json({ success: false });
+  } else {
+    await putItem(formula, name);
+    res.json({ success: true });
+  }
+});
+
 const dbClient = new DynamoDBClient({
   region: "ap-northeast-1",
   credentials: {
@@ -16,15 +29,15 @@ const dbClient = new DynamoDBClient({
 });
 const documentClient = DynamoDBDocumentClient.from(dbClient);
 
-async function putItem() {
+async function putItem(formula, name) {
   try {
     const command = new PutCommand({
       TableName: "viewDev",
       Item: {
         viewId: crypto.randomUUID(),
         dbVersion: 1,
-        name: "sample1",
-        formula: "3x-4",
+        name: name,
+        formula: formula,
       },
     });
     const output = await documentClient.send(command);
@@ -33,11 +46,5 @@ async function putItem() {
     console.log("ERROR:", err);
   }
 }
-
-const router = express.Router();
-router.post("/views/new", async (req, res) => {
-  await putItem();
-  res.json({ success: true });
-});
 
 module.exports = router;

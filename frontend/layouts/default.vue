@@ -8,7 +8,8 @@
         </v-app-bar-nav-icon>
         nativePlot
 
-        <v-btn href="views" nuxt>views</v-btn>
+        <v-btn href="/" nuxt>top</v-btn>
+        <v-btn href="/views" nuxt>views</v-btn>
       </v-toolbar-title>
     </v-app-bar>
     <slot />

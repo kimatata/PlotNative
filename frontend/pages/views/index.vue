@@ -1,13 +1,38 @@
 <template>
   <v-main>
-    <v-container :fluid="true" class="">
+    <v-container class="">
       <v-row class="">
-        <v-col cols="12" class="">
-          <v-btn @click="requestAddView()">
-            add
+        <v-col cols="3" class=""></v-col>
+        <v-col cols="6" class="">
+          <v-btn class="ar-btn-primary mt-5" @click="showDialog = true">
+            Resister Formula
           </v-btn>
 
-          <v-table>
+          <v-dialog v-model="showDialog" width="600">
+            <v-card>
+              <v-card-title>
+                <span class="text-h5">Input Formula</span>
+              </v-card-title>
+              <v-container>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field variant="outlined" label="Formula*" placeholder="x^2 +3x -2" v-model="formulaInput" required />
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field variant="outlined" label="Name*" placeholder="quadratic" v-model="nameInput" required />
+                  </v-col>
+                </v-row>
+              </v-container>
+
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" @click="showDialog = false">Close</v-btn>
+                <v-btn color="primary" @click="resisterView(), showDialog = false">Resister</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-table class="view-table">
             <thead>
               <tr>
                 <th class="text-left">
@@ -30,6 +55,7 @@
             </tbody>
           </v-table>
         </v-col>
+        <v-col cols="3" class=""></v-col>
       </v-row>
     </v-container>
   </v-main>
@@ -40,6 +66,9 @@ const runtimeConfig = useRuntimeConfig();
 const origin = runtimeConfig.public.serverOrigin
 
 const views = ref([])
+const showDialog = ref(false)
+const formulaInput = ref("")
+const nameInput = ref("")
 
 onMounted(async () => {
   await fetchViews();
@@ -54,9 +83,14 @@ async function fetchViews() {
     );
 }
 
-async function requestAddView() {
+async function resisterView() {
+  if (formulaInput.value.length > 1) {
+    return
+  }
+
   const params = {
-    formula: "x^2 -x + 8",
+    formula: formulaInput.value,
+    name: nameInput.value
   };
   const query_params = new URLSearchParams(params);
   const url = origin + '/views/new?' + query_params
@@ -73,3 +107,9 @@ function updateView(items) {
   }
 }
 </script>
+
+<style scoped>
+.view-table {
+  width: 600px;
+}
+</style>
