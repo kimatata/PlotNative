@@ -22,8 +22,10 @@ app.get('/', (req, res) => {
 
 const viewIndexRoute = require('./views/index.js')
 const viewNewRoute = require('./views/new.js')
+const viewShowRoute = require('./views/show.js')
 app.use(viewIndexRoute)
 app.use(viewNewRoute)
+app.use(viewShowRoute)
 
 app.get("/plot", async (req, res) => {
   const fx = req.query.fx;

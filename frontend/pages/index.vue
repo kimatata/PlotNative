@@ -68,12 +68,10 @@
 
 <script setup>
 import Chart from 'chart.js/auto'; // TODO バンドルサイズ小さく
-// ui
-const drawer = ref(null)
+const route = useRoute()
 
 // plot
 let chart = null
-const samplefx = "f(x)"
 const fx = ref("x^2")
 const xMin = ref(-5)
 const xMax = ref(5)
@@ -81,6 +79,10 @@ const plotNum = ref(256)
 const reactiveData = ref([])
 
 onMounted(async () => {
+  if (route.query) {
+    await fetchVeiwData(route.query.uuid)
+  }
+
   await fetchData();
   createChart()
 })
@@ -92,6 +94,15 @@ async function onPlotClicked() {
 
 const runtimeConfig = useRuntimeConfig();
 const origin = runtimeConfig.public.serverOrigin
+
+// DynamoDBからviewデータを取得
+async function fetchVeiwData(uuid) {
+  const url = origin + '/views/' + uuid
+  const jsonStr = await fetch(url)
+  const ret = await jsonStr.json()
+
+  fx.value = ret.formula
+}
 
 async function fetchData() {
   // サーバーサイドでプロットデータを生成

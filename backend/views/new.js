@@ -1,6 +1,6 @@
 const express = require("express");
 const crypto = require("crypto");
-const { DynamoDBClient, WriteRequest } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const {
   DynamoDBDocumentClient,
   PutCommand,

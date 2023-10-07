@@ -16,7 +16,8 @@
               <v-container>
                 <v-row>
                   <v-col cols="12">
-                    <v-text-field variant="outlined" label="Formula*" placeholder="x^2 +3x -2" v-model="formulaInput" required />
+                    <v-text-field variant="outlined" label="Formula*" placeholder="x^2 +3x -2" v-model="formulaInput"
+                      required />
                   </v-col>
                   <v-col cols="12">
                     <v-text-field variant="outlined" label="Name*" placeholder="quadratic" v-model="nameInput" required />
@@ -35,9 +36,9 @@
           <v-table class="view-table">
             <thead>
               <tr>
-                <th class="text-left">
+                <!-- <th class="text-left">
                   uuid
-                </th>
+                </th> -->
                 <th class="text-left">
                   Name
                 </th>
@@ -48,8 +49,12 @@
             </thead>
             <tbody>
               <tr v-for="view in views">
-                <td>{{ view.viewId }}</td>
-                <td>{{ view.name }}</td>
+                <!-- <td>{{ view.viewId }}</td> -->
+                <td>
+                  <NuxtLink :to="'/?uuid=' + view.viewId">
+                    {{ view.name }}
+                  </NuxtLink>
+                </td>
                 <td>{{ view.formula }}</td>
               </tr>
             </tbody>
@@ -84,7 +89,7 @@ async function fetchViews() {
 }
 
 async function resisterView() {
-  if (formulaInput.value.length > 1) {
+  if (formulaInput.value.length < 1) {
     return
   }
 
@@ -111,5 +116,4 @@ function updateView(items) {
 <style scoped>
 .view-table {
   width: 600px;
-}
-</style>
+}</style>
